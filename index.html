@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Homework Help Forum</title>
+    <meta name="description" content="Ask questions, get answers, and collaborate on homework.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='16' fill='%231d4ed8'/%3E%3Ctext x='50' y='58' font-size='48' text-anchor='middle' fill='white' font-family='Arial'%3EH%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="#" class="logo">Homework Help</a>
+            <nav class="nav" id="primaryNav" aria-label="Primary">
+                <a href="#topics">Topics</a>
+                <a href="#latest">Latest</a>
+                <a href="#ask">Ask</a>
+                <a href="#about">About</a>
+            </nav>
+            <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="primaryNav">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container hero-inner">
+                <div class="hero-copy">
+                    <h1>Get unstuck. Learn together.</h1>
+                    <p>Ask questions, share solutions, and master your subjects with help from peers and mentors.</p>
+                    <form class="search" role="search" aria-label="Search questions">
+                        <input type="search" placeholder="Search algebra, biology, history..." aria-label="Search"/>
+                        <button type="submit">Search</button>
+                    </form>
+                    <div class="hero-cta">
+                        <a class="btn primary" href="#ask">Ask a Question</a>
+                        <a class="btn" href="#latest">Browse Latest</a>
+                    </div>
+                </div>
+                <div class="hero-illustration" aria-hidden="true">
+                    <div class="card">
+                        <div class="card-line"></div>
+                        <div class="card-line wide"></div>
+                        <div class="badge">A+</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="topics" id="topics">
+            <div class="container">
+                <h2>Popular topics</h2>
+                <div class="chip-list" role="list">
+                    <button class="chip" role="listitem">Algebra</button>
+                    <button class="chip" role="listitem">Geometry</button>
+                    <button class="chip" role="listitem">Biology</button>
+                    <button class="chip" role="listitem">Chemistry</button>
+                    <button class="chip" role="listitem">Physics</button>
+                    <button class="chip" role="listitem">History</button>
+                    <button class="chip" role="listitem">English</button>
+                    <button class="chip" role="listitem">Computer Science</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="latest" id="latest">
+            <div class="container">
+                <h2>Latest questions</h2>
+                <div id="postsGrid" class="grid" aria-live="polite"></div>
+            </div>
+        </section>
+
+        <section class="ask" id="ask">
+            <div class="container">
+                <h2>Ask a question</h2>
+                <form id="askForm" novalidate>
+                    <div class="form-grid">
+                        <label class="field">
+                            <span>Your name</span>
+                            <input id="author" type="text" placeholder="How should we display you?" required/>
+                            <small class="error" id="authorError" aria-live="polite"></small>
+                        </label>
+                        <label class="field">
+                            <span>Subject</span>
+                            <select id="subject" required>
+                                <option value="" disabled selected>Select a subject</option>
+                                <option>Algebra</option>
+                                <option>Geometry</option>
+                                <option>Biology</option>
+                                <option>Chemistry</option>
+                                <option>Physics</option>
+                                <option>History</option>
+                                <option>English</option>
+                                <option>Computer Science</option>
+                            </select>
+                            <small class="error" id="subjectError" aria-live="polite"></small>
+                        </label>
+                        <label class="field">
+                            <span>Title</span>
+                            <input id="title" type="text" placeholder="Brief summary of your question" required/>
+                            <small class="error" id="titleError" aria-live="polite"></small>
+                        </label>
+                        <label class="field field-full">
+                            <span>Details</span>
+                            <textarea id="details" rows="6" placeholder="Provide context, what you've tried, and where you're stuck" required></textarea>
+                            <small class="error" id="detailsError" aria-live="polite"></small>
+                        </label>
+                    </div>
+                    <div class="form-actions">
+                        <button class="btn primary" id="submitBtn" type="submit">Post question</button>
+                        <button class="btn" id="cancelEdit" type="button" style="display:none;">Cancel</button>
+                        <p class="fine-print">Be respectful and include attempted work for best help.</p>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <section class="about" id="about">
+            <div class="container">
+                <h2>About this forum</h2>
+                <p>Built for students helping students. This demo shows a clean, accessible, responsive front‑end you can extend with a backend later.</p>
+            </div>
+        </section>
+
+        <section class="post-view" id="postView" style="display:none;">
+            <div class="container">
+                <button class="btn" id="closePostView" type="button">← Back</button>
+                <article class="post expanded" id="postDetail"></article>
+                <div class="answers">
+                    <h3>Answers</h3>
+                    <div id="answersList"></div>
+                    <form id="answerForm" class="answer-form" novalidate>
+                        <label class="field field-full">
+                            <span>Your answer</span>
+                            <textarea id="answerDetails" rows="5" placeholder="Write your answer..." required></textarea>
+                            <small class="error" id="answerError" aria-live="polite"></small>
+                        </label>
+                        <div class="form-actions">
+                            <button class="btn primary" id="answerSubmit" type="submit">Post answer</button>
+                            <button class="btn" id="answerCancel" type="button" style="display:none;">Cancel</button>
+                            <span class="fine-print">Answers are saved to your browser only.</span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <p>© <span id="year"></span> Homework Help Forum</p>
+            <div class="footer-links">
+                <a href="#">Code of Conduct</a>
+                <a href="#">Privacy</a>
+                <a href="#">Terms</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    
+</body>
+</html>
+
+
